@@ -1,10 +1,11 @@
 {
   "name": "c-json-writer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repo": "player1537/c-json-writer",
   "description": "A library to simplify outputting JSON data",
   "keywords": ["json"],
   "license": "MIT",
+  "makefile": "Makefile",
   "src": [
     "json_writer.c",
     "json_writer.h",
