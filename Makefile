@@ -13,7 +13,7 @@ CC := gcc
 endif
 
 ifndef CFLAGS
-CFLAGS := -std=gnu11 -Wall -Werror -pedantic -g -Ilibtap -I.
+CFLAGS := -std=gnu11 -Wall -Werror -pedantic -g -Ilibtap
 endif
 
 ifndef LIBS
@@ -35,7 +35,7 @@ endif
 all:
 
 .PHONY: test
-test: test_json_writer
+test: test_json_writer test_json_writer_helper
 
 .PHONY: clean
 clean:
@@ -56,12 +56,6 @@ test_json_writer_helper: build/test_json_writer_helper
 ################
 # Source Transformations
 
-mp:
-	mkdir -p $@
-
-mp/mp.h: | mp
-	wget 'http://www.chiark.greenend.org.uk/~sgtatham/mp/mp.h' -O $@
-
 
 libtap:
 	git submodule update $@
@@ -71,7 +65,7 @@ libtap/tap.c: | libtap
 libtap/tap.h: | libtap
 
 
-json_writer_helper.h: mp/mp.h
+json_writer_helper.h: mp.h
 
 
 build download gen:

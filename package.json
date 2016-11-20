@@ -8,6 +8,7 @@
   "src": [
     "json_writer.c",
     "json_writer.h",
-    "json_writer_helper.h"
+    "json_writer_helper.h",
+    "mp.h"
   ]
 }

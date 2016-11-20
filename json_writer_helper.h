@@ -1,7 +1,7 @@
 #ifndef _JSON_WRITER_HELPER_H_
 #define _JSON_WRITER_HELPER_H_
 
-#include <mp/mp.h>
+#include "mp.h"
 
 
 #define JSON_WRAP(ctx_pointer, f)                               \
