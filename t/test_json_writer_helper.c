@@ -202,6 +202,31 @@ test_helper_complex_nested_object(void) {
 }
 
 
+void
+test_helper_floating_point_value(void) {
+  char *expected = "{\n  \"foo\": 1.23\n}";
+  struct json_writer ctx;
+  FILE *f;
+  char buffer[128];
+
+  diag("---[ %s ]---", __func__);
+
+  memset(buffer, 0x00, sizeof(buffer));
+  f = fmemopen(buffer, sizeof(buffer), "wb");
+
+  JSON_WRAP(&ctx, f) {
+    JSON_OBJECT() {
+      JSON_KEY_VALUE("foo", 1.23);
+    }
+  }
+
+  fflush(f);
+  fclose(f);
+
+  is(buffer, expected, "should have correct output");
+}
+
+
 int
 main(int argc, char **argv) {
   plan(NO_PLAN);
@@ -212,5 +237,6 @@ main(int argc, char **argv) {
   test_helper_two_element_array();
   test_helper_simple_nested_object();
   test_helper_complex_nested_object();
+  test_helper_floating_point_value();
   done_testing();
 }

@@ -90,6 +90,34 @@ json_writer_s(struct json_writer *ctx, char *value) {
 
 
 void
+json_writer_f(struct json_writer *ctx, float value) {
+  if (ctx->in_array[ctx->depth]) {
+    if (ctx->index[ctx->depth] != 0) {
+      fprintf(ctx->f, ",");
+      fprintf(ctx->f, "\n");
+      json_writer_indent(ctx);
+    }
+    ctx->index[ctx->depth]++;
+  }
+  fprintf(ctx->f, "%g", value);
+}
+
+
+void
+json_writer_lf(struct json_writer *ctx, double value) {
+  if (ctx->in_array[ctx->depth]) {
+    if (ctx->index[ctx->depth] != 0) {
+      fprintf(ctx->f, ",");
+      fprintf(ctx->f, "\n");
+      json_writer_indent(ctx);
+    }
+    ctx->index[ctx->depth]++;
+  }
+  fprintf(ctx->f, "%lg", value);
+}
+
+
+void
 json_writer_array_start(struct json_writer *ctx) {
   fprintf(ctx->f, "[");
   ctx->depth++;

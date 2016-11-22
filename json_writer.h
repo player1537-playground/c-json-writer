@@ -48,6 +48,14 @@ json_writer_s(struct json_writer *ctx, char *value);
 
 
 void
+json_writer_f(struct json_writer *ctx, float value);
+
+
+void
+json_writer_lf(struct json_writer *ctx, double value);
+
+
+void
 json_writer_array_start(struct json_writer *ctx);
 
 

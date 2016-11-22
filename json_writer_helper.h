@@ -24,17 +24,19 @@
   json_writer_key(_ctx_p, (key))
 
 
-#define JSON_KEY_VALUE(key, value) \
-  do {                             \
-    JSON_KEY((key));               \
-    JSON_VALUE((value));           \
+#define JSON_KEY_VALUE(key, value)              \
+  do {                                          \
+    JSON_KEY((key));                            \
+    JSON_VALUE((value));                        \
   } while (0)
 
 
-#define JSON_VALUE(value)                               \
-  _Generic((value),                                     \
-           char*: json_writer_s,                  \
-           int: json_writer_d                           \
+#define JSON_VALUE(value)                       \
+  _Generic((value),                             \
+           char*: json_writer_s,                \
+           int: json_writer_d,                  \
+           float: json_writer_f,                \
+           double: json_writer_lf               \
            )(_ctx_p, (value))
 
 

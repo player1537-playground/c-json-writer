@@ -223,6 +223,62 @@ test_complex_nested_object(void) {
 }
 
 
+void
+test_float_value(void) {
+  char *expected = "{\n  \"foo\": 1.23\n}";
+  struct json_writer ctx;
+  FILE *f;
+  char buffer[128];
+
+  diag("---[ %s ]---", __func__);
+
+  memset(buffer, 0x00, sizeof(buffer));
+  f = fmemopen(buffer, sizeof(buffer), "wb");
+  json_writer_init(&ctx, f);
+
+  json_writer_open(&ctx); {
+
+    json_writer_key(&ctx, "foo");
+    json_writer_f(&ctx, 1.23);
+
+  }; json_writer_close(&ctx);
+
+  json_writer_finalize(&ctx);
+  fflush(f);
+  fclose(f);
+
+  is(buffer, expected, "should have correct output");
+}
+
+
+void
+test_double_value(void) {
+  char *expected = "{\n  \"foo\": 1.23\n}";
+  struct json_writer ctx;
+  FILE *f;
+  char buffer[128];
+
+  diag("---[ %s ]---", __func__);
+
+  memset(buffer, 0x00, sizeof(buffer));
+  f = fmemopen(buffer, sizeof(buffer), "wb");
+  json_writer_init(&ctx, f);
+
+  json_writer_open(&ctx); {
+
+    json_writer_key(&ctx, "foo");
+    json_writer_lf(&ctx, 1.23);
+
+  }; json_writer_close(&ctx);
+
+  json_writer_finalize(&ctx);
+  fflush(f);
+  fclose(f);
+
+  is(buffer, expected, "should have correct output");
+}
+
+
 int
 main(int argc, char **argv) {
   plan(NO_PLAN);
@@ -233,5 +289,7 @@ main(int argc, char **argv) {
   test_two_element_array();
   test_simple_nested_object();
   test_complex_nested_object();
+  test_float_value();
+  test_double_value();
   done_testing();
 }
